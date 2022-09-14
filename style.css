@@ -65,12 +65,34 @@ button,
 
 /* Matching page */
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5em;
+}
+
+.review-matches,
+.change-pref,
+.new-matches {
+  margin: 1em;
+  padding: 0.3em 0.5em;
+  background-color: #ffa3af;
+  border: none;
+  border-radius: 5px;
+}
+
+.review-matches:hover,
+.change-pref:hover,
+.new-matches:hover {
+  background-color: #f58d9b;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: calc(50vh - 330px);
+  margin: 0 calc(50vh - 330px);
 }
 
 .dog-profile {
@@ -85,8 +107,8 @@ img {
 }
 
 .matches-img {
-  width: 30em;
-  height: 30em;
+  width: 35em;
+  height: 25em;
 }
 
 .dog-info {
@@ -115,3 +137,5 @@ img {
 .option-btns button:hover {
   background-color: #f58d9b;
 }
+
+/* Review Page */

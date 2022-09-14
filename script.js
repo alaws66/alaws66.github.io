@@ -24,7 +24,7 @@ form.addEventListener('submit', (e) => {
   localStorage.clear();
 
   localStorage.setItem("selectedSex", document.querySelector('input[name="sex"]:checked').id);
-  
-
   localStorage.setItem("breed", select.value);
+
+  location.href = 'http://127.0.0.1:5174/matching.html';
 })

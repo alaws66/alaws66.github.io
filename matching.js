@@ -1,39 +1,3 @@
-// get elements from html
-const matches = document.querySelector('.matchesImg');
-const dogInfo = document.querySelector('.dogInfo');
-const breedName = document.querySelector('breed');
-const crossBtn = document.querySelector('.cross');
-const heartBtn = document.querySelector('.heart');
-
-// fetch data from API to get random dog image
-fetch('https://dog.ceo/api/breeds/image/random')
-  .then(response => response.json())
-  .then(data => generateImage(data.message))
-
-// put random image into html
-function generateImage(data) {
-  const html = `
-    <img src='${data}' alt>
-  `;
-  matches.innerHTML = html;
-}
-
-// generate random dog image based off of breed selected by user
-function fetchBreedImg() {
-  const img = matches.querySelector('img');
-
-  generateImage(`https://dog.ceo/api/breed/${breed}/images/random`)
-    .then(data => {
-      img.src = data.message;
-      img.alt = breed;
-      breedName.textContent = `${breed}`;
-    })
-}
-
-// run function for new image when button clicked
-crossBtn.addEventListener('click', fetchBreedImg);
-heartBtn.addEventListener('click', fetchBreedImg);
-
 // lists of random dog names
 const femaleNames = [
   'Luna',
@@ -447,37 +411,73 @@ const allNames = [
 // list of sexes
 const sexes = ['male', 'female'];
 
+// get elements from html
+const matches = document.querySelector('.matches-img');
+const dogInfo = document.querySelector('.dog-info');
+const crossBtn = document.querySelector('.cross');
+const heartBtn = document.querySelector('.heart');
+
 // get paragraph elements from html
 const name = document.querySelector('.name');
 const breedShow = document.querySelector('.breed');
 const sex = document.querySelector('.sex');
 
-// get random name from specific list depending on user selection
-if (selectedSex == 'female') {
-  const randomFemName = femaleNames[Math.floor(Math.random()*femaleNames.length)];
-  name.textContent = `Name: ${randomFemName}`;
-  dogInfo.appendChild(name);
-} else if (selectedSex == 'male') {
-  const randomMaleName = maleNames[Math.floor(Math.random()*maleNames.length)];
-  name.textContent = `Name: ${randomMaleName}`;
-  dogInfo.appendChild(name);
-} else if (selectedSex == 'both') {
-  const randomName = allNames[Math.floor(Math.random()*allNames.length)];
-  name.textContent = `Name: ${randomName}`;
-  dogInfo.appendChild(name);
+// get user input from local storage
+const selectedSex = localStorage.getItem('selectedSex');
+const selectedBreed = localStorage.getItem('breed');
+
+// generate random dog image based off of breed selected by user
+function fetchBreedImg() {
+  const img = matches.querySelector('img');
+
+  // fetch data from API to get random dog image
+  fetch(`https://dog.ceo/api/breed/${selectedBreed}/images/random`)
+  .then(response => response.json())
+  .then(data => generateImage(data.message))
+
+  // put random image into html
+  function generateImage(data) {
+  const html = `
+    <img src='${data}' alt='${selectedBreed}'>
+  `;
+  matches.innerHTML = html;
+  }
+
+  // get random name from specific list depending on user selection
+  if (selectedSex == 'female') {
+    const randomFemName = femaleNames[Math.floor(Math.random()*femaleNames.length)];
+    name.textContent = `Name: ${randomFemName}`;
+    dogInfo.appendChild(name);
+  } else if (selectedSex == 'male') {
+    const randomMaleName = maleNames[Math.floor(Math.random()*maleNames.length)];
+    name.textContent = `Name: ${randomMaleName}`;
+    dogInfo.appendChild(name);
+  } else if (selectedSex == 'both') {
+    const randomName = allNames[Math.floor(Math.random()*allNames.length)];
+    name.textContent = `Name: ${randomName}`;
+    dogInfo.appendChild(name);
+  }
+
+  breedShow.textContent = `Breed: ${selectedBreed}`
+
+  // display specific sex to match user selection
+  if (selectedSex == 'male') {
+    sex.textContent = 'Sex: male'
+    dogInfo.appendChild(sex);
+  } else if (selectedSex == 'female') {
+    sex.textContent = 'Sex: female'
+    dogInfo.appendChild(sex);
+  } else if (selectedSex == 'both') {
+    const randomSex = sexes[Math.floor(Math.random()*sexes.length)];
+    sex.textContent = `Sex: ${randomSex}`;
+    dogInfo.appendChild(sex);
+  }
 }
 
-breedShow.textContent = `Breed: ${breed}`
+// run function once before button click
+fetchBreedImg();
 
-// display specific sex to match user selection
-if (selectedSex == 'male') {
-  sex.textContent = 'Sex: male'
-  dogInfo.appendChild(sex);
-} else if (selectedSex == 'female') {
-  sex.textContent = 'Sex: female'
-  dogInfo.appendChild(sex);
-} else if (selectedSex == 'both') {
-  const randomSex = sexes[Math.floor(Math.random()*sexes.length)];
-  sex.textContent = `Sex: ${randomSex}`;
-  dogInfo.appendChild(sex);
-}
+// run function for new image when button clicked
+matches.addEventListener('change', fetchBreedImg);
+crossBtn.addEventListener('click', fetchBreedImg);
+heartBtn.addEventListener('click', fetchBreedImg);

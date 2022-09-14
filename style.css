@@ -46,8 +46,8 @@ button,
   font-size: 2em;
 }
 
-.sexPref,
-.breedSelect {
+.sex-pref,
+.breed-select {
   font-size: 3em;
 }
 
@@ -84,7 +84,7 @@ img {
   max-height: 100%;
 }
 
-.matchesImg {
+.matches-img {
   width: 30em;
   height: 30em;
 }
@@ -97,7 +97,7 @@ img {
   border-radius: 50px;
 }
 
-.optionBtns {
+.option-btns {
   margin-top: 3em;
 }
 
@@ -112,6 +112,6 @@ img {
   border-radius: 50%;
 }
 
-.optionBtns button:hover {
+.option-btns button:hover {
   background-color: #f58d9b;
 }

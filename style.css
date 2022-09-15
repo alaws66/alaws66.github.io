@@ -153,6 +153,21 @@ form {
   justify-content: space-between;
 }
 
+.search-input {
+  text-align: center;
+}
+
+.search-breed,
+.search-name {
+  font-size: 1.5em;
+  margin: 0 1em;
+  padding-left: 0.5em;
+  width: 12em;
+  height: 2em;
+  border: 1px solid #ffa3af;
+  border-radius: 4px;
+}
+
 .show-all-matches {
   display: flex;
   flex-wrap: wrap;

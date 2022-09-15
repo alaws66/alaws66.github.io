@@ -1,4 +1,8 @@
 // get elements from html
+const searchBreed = document.getElementById('search-breed');
+const searchName = document.getElementById('search-name');
+const searchSex = document.getElementById('search-sex');
+
 const newMatches = document.querySelector('.new-matches');
 const changePref = document.querySelector('.change-pref');
 const showAllMatches = document.querySelector('.show-all-matches');
@@ -39,6 +43,11 @@ function showMatch () {
     displayMatch.classList.add('match-div');
     imgDiv.classList.add('dog-img');
     pDiv.classList.add('info-div');
+
+    // add classes to p tags
+    breedInfo.classList.add('info-breed');
+    nameInfo.classList.add('info-name');
+    sexInfo.classList.add('info-sex');
 
     // get individual properties from each object in the array
     const properties = Object.values(matchDetails[i]);
@@ -81,3 +90,45 @@ function showMatch () {
 
 // run function
 showMatch();
+
+searchBreed.addEventListener('keyup', (e) => {
+  let currentValue = searchBreed.value.toLowerCase();
+  let dogsBreed = document.querySelectorAll('.info-breed');
+
+  for (let i = 0; i < dogsBreed.length; i++) {
+    const allBreedInfo = dogsBreed[i].textContent.toLowerCase();
+    if (allBreedInfo.includes(currentValue)) {
+      dogsBreed[i].parentNode.parentNode.style.display = 'block';
+    } else {
+      dogsBreed[i].parentNode.parentNode.style.display = 'none';
+    }
+  }
+});
+
+searchName.addEventListener('keyup', (e) => {
+  let currentValue = searchName.value.toLowerCase();
+  let dogsName = document.querySelectorAll('.info-name');
+
+  for (let i = 0; i < dogsName.length; i++) {
+    const allNameInfo = dogsName[i].textContent.toLowerCase();
+    if (allNameInfo.includes(currentValue)) {
+      dogsName[i].parentNode.parentNode.style.display = 'block';
+    } else {
+      dogsName[i].parentNode.parentNode.style.display = 'none';
+    }
+  }
+});
+
+// searchSex.addEventListener('keyup', (e) => {
+//   let currentValue = searchSex.value.toLowerCase();
+//   let dogsSex = document.querySelectorAll('.info-sex');
+
+//   for (let i = 0; i < dogsSex.length; i++) {
+//     const allSexInfo = dogsSex[i].textContent.toLowerCase();
+//     if (allSexInfo.includes(currentValue)) {
+//       dogsSex[i].parentNode.parentNode.style.display = 'block';
+//     } else {
+//       dogsSex[i].parentNode.parentNode.style.display = 'none';
+//     }
+//   }
+// });

@@ -3,6 +3,17 @@ body {
   margin: 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5em;
+}
+
+.header img {
+  width: 15em;
+  margin: 1em;
+}
+
 /* Index page */
 
 .preferences {
@@ -65,16 +76,10 @@ button,
 
 /* Matching page */
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5em;
-}
-
 .review-matches,
 .change-pref,
 .new-matches {
-  margin: 1em;
+  margin: 2em 1em 1em;
   padding: 0.3em 0.5em;
   background-color: #ffa3af;
   border: none;
@@ -83,7 +88,9 @@ button,
 
 .review-matches:hover,
 .change-pref:hover,
-.new-matches:hover {
+.new-matches:hover,
+.option-btns button:hover,
+.match-div button:hover {
   background-color: #f58d9b;
 }
 
@@ -101,7 +108,7 @@ button,
   justify-content: space-around;
 }
 
-img {
+.matches-img img {
   max-width: 100%;
   max-height: 100%;
 }
@@ -134,8 +141,47 @@ img {
   border-radius: 50%;
 }
 
-.option-btns button:hover {
-  background-color: #f58d9b;
+/* Review Page */
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-/* Review Page */
+.review-header img {
+  width: 15em;
+  margin: 1em;
+}
+
+.show-all-matches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.match-div {
+  display: flex;
+  flex-direction: column;
+  color: #51291e;
+  background-color: #ecc755;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5em;
+  margin: 2em;
+  padding: 2.5em;
+  width: 10em;
+  height: fit-content;
+  border-radius: 50px;
+}
+
+.dog-img img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.match-div button {
+  font-size: 1em;
+  padding: 0.3em 0.5em;
+  background-color: #ffa3af;
+  border: none;
+  border-radius: 5px;
+}

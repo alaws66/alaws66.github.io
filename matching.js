@@ -205,209 +205,6 @@ const maleNames = [
   'Pluto',
 ];
 
-const allNames = [
-  'Milo',
-  'Teddy',
-  'Max',
-  'Buddy',
-  'Alfie',
-  'Charlie',
-  'Oscar',
-  'Archie',
-  'Bailey',
-  'Hugo',
-  'Bruno',
-  'Barney',
-  'Loki',
-  'Bear',
-  'Monty',
-  'Toby',
-  'Murphy',
-  'Leo',
-  'Rocky',
-  'Jasper',
-  'Marley',
-  'Frank',
-  'Jack',
-  'Blu',
-  'Bobby',
-  'Otis',
-  'Rocco',
-  'Chester',
-  'Simba',
-  'Buster',
-  'Winston',
-  'Pablo',
-  'Billy',
-  'Bruce',
-  'Henry',
-  'Woody',
-  'Ozzy',
-  'Rex',
-  'Louie',
-  'Rolo',
-  'Frankie',
-  'Otto',
-  'Rufus',
-  'Ronnie',
-  'Louis',
-  'Harry',
-  'Gizmo',
-  'Gus',
-  'Beau',
-  'Lenny',
-  'Duke',
-  'Finn',
-  'Paddy',
-  'Tyson',
-  'Ernie',
-  'Rio',
-  'Baxter',
-  'Kobe',
-  'Coco',
-  'Hunter',
-  'Sam',
-  'Basil',
-  'Hector',
-  'Diesel',
-  'Percy',
-  'Boris',
-  'Dylan',
-  'Obi',
-  'Prince',
-  'Riley',
-  'Jax',
-  'Chewy',
-  'Rusty',
-  'Lucky',
-  'Joey',
-  'Ben',
-  'Casper',
-  'Bob',
-  'Rudy',
-  'Buzz',
-  'Jake',
-  'Merlin',
-  'Apollo',
-  'Jackson',
-  'Scooby',
-  'Ace',
-  'Elvis',
-  'Albert',
-  'Chico',
-  'Sunny',
-  'Peanut',
-  'Thor',
-  'Hank',
-  'Cosco',
-  'Oreo',
-  'Eric',
-  'Moose',
-  'Fred',
-  'Mac',
-  'Pluto',
-  'Luna',
-  'Bella',
-  'Lola',
-  'Poppy',
-  'Coco',
-  'Ruby',
-  'Rosie',
-  'Daisy',
-  'Molly',
-  'Willow',
-  'Nala',
-  'Bonnie',
-  'Lily',
-  'Roxy',
-  'Millie',
-  'Tilly',
-  'Winnie',
-  'Honey',
-  'Maggie',
-  'Skye',
-  'Penny',
-  'Dolly',
-  'Bailey',
-  'Pepper',
-  'Olive',
-  'Lucy',
-  'Betty',
-  'Belle',
-  'Lulu',
-  'Peggy',
-  'Minnie',
-  'Cookie',
-  'Stella',
-  'Holly',
-  'Phoebe',
-  'Amber',
-  'Frankie',
-  'Cleo',
-  'Jess',
-  'Sky',
-  'Ellie',
-  'Ivy',
-  'Nelly',
-  'Milly',
-  'Ella',
-  'Darcy',
-  'Nova',
-  'Beau',
-  'Freya',
-  'Lady',
-  'Pixie',
-  'Sophie',
-  'Kiki',
-  'Maddie',
-  'Elsa',
-  'Blu',
-  'Dotty',
-  'Boo',
-  'Tia',
-  'Dora',
-  'Polly',
-  'Wilma',
-  'Daphne',
-  'Peanut',
-  'Piper',
-  'Sandy',
-  'Storm',
-  'Martha',
-  'Scout',
-  'Heidi',
-  'Roo',
-  'Leia',
-  'Zoe',
-  'Biscuit',
-  'Chloe',
-  'Angel',
-  'Charlie',
-  'Maple',
-  'Marley',
-  'Harper',
-  'Princess',
-  'Peppa',
-  'Nina',
-  'Dixie',
-  'Hazel',
-  'Flo',
-  'Lilo',
-  'Riley',
-  'Nancy',
-  'Trixie',
-  'Star',
-  'Teddy',
-  'Hattie',
-  'Bear',
-  'Gigi',
-  'Toffee',
-  'Blossom',
-  'Red',
-  'Kira',
-  'Ava',
-];
-
 // list of sexes
 const sexes = ['male', 'female'];
 
@@ -424,16 +221,11 @@ const name = document.querySelector('.name');
 const breedShow = document.querySelector('.breed');
 const sex = document.querySelector('.sex');
 
-// functions for event listeners to change page when button clicked
-function reviewMatches() {
-  location.href = 'http://127.0.0.1:5174/review.html';
-}
-
+// function for event listener to change page when button clicked
 function changePreferences() {
   location.href = 'http://127.0.0.1:5174';
 }
 
-reviewMatch.addEventListener('click', reviewMatches);
 changePref.addEventListener('click', changePreferences);
 
 // generate random dog image based off of breed selected by user
@@ -452,7 +244,7 @@ function fetchBreedImg() {
   // put random image into html
   function generateImage(data) {
   const html = `
-    <img src='${data}' alt='${selectedBreed}'>
+    <img src='${data}' alt='${selectedBreed}' id='dog-img'>
   `;
   matches.innerHTML = html;
   }
@@ -505,6 +297,37 @@ crossBtn.addEventListener('click', () => {
   fetchBreedImg();
 });
 
+// empty array
+let allMatches = [];
+
 heartBtn.addEventListener('click', () => {
+  // add all match info into local storage
+  localStorage.setItem("likedBreed", breedShow.textContent);
+  localStorage.setItem("likedName", name.textContent);
+  localStorage.setItem("likedSex", sex.textContent);
+  localStorage.setItem('likedImgSrc', document.getElementById('dog-img').src);
+
+  // get match info from storage
+  const matchedBreed = localStorage.getItem('likedBreed');
+  const matchedName = localStorage.getItem('likedName');
+  const matchedSex = localStorage.getItem('likedSex');
+  const matchedImg = localStorage.getItem('likedImgSrc');
+
+  // add all match info into an object and push to empty array
+  let likedMatch = {matchedBreed, matchedName, matchedSex, matchedImg};
+  allMatches.push(likedMatch);
+
+  // run function
   fetchBreedImg();
 });
+
+// function to change page when button clicked and store allMatches
+function reviewMatches() {
+  const allMatchesString = JSON.stringify(allMatches);
+  localStorage.setItem("reviewAllMatchesString", allMatchesString);
+
+  location.href = 'http://127.0.0.1:5174/review.html';
+}
+
+// run function when button clicked
+reviewMatch.addEventListener('click', reviewMatches);

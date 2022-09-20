@@ -3,10 +3,10 @@ const searchBreed = document.getElementById('search-breed');
 const searchName = document.getElementById('search-name');
 const searchSex = document.getElementById('search-sex');
 
+const sortBy = document.querySelector('.sort-by');
 const newMatches = document.querySelector('.new-matches');
 const changePref = document.querySelector('.change-pref');
 const showAllMatches = document.querySelector('.show-all-matches');
-const showMatches = document.querySelector('.show-matches');
 
 // functions for changing pages
 function findMatches() {
@@ -25,10 +25,65 @@ changePref.addEventListener('click', changePreferences);
 const matchDetailsString = localStorage.getItem('reviewAllMatchesString');
 const matchDetails = JSON.parse(matchDetailsString);
 
+// function to sort names alphabetically
+function compareNames(a, b) {
+  if (a.matchedName < b.matchedName){
+    return -1;
+  }
+  if (a.matchedName > b.matchedName){
+    return 1;
+  }
+  return 0;
+}
+
+// function to sort names reverse alphabetically
+function reverseCompareNames(a, b) {
+  if (a.matchedName < b.matchedName){
+    return 1;
+  }
+  if (a.matchedName > b.matchedName){
+    return -1;
+  }
+  return 0;
+}
+
+// function to sort by sexes
+function compareSexes(a, b) {
+  if (a.matchedSex < b.matchedSex){
+    return -1;
+  }
+  if (a.matchedSex > b.matchedSex){
+    return 1;
+  }
+  return 0;
+}
+
+// function to sort breeds alphabetically
+function compareBreeds(a, b) {
+  if (a.matchedBreed < b.matchedBreed){
+    return -1;
+  }
+  if (a.matchedBreed > b.matchedBreed){
+    return 1;
+  }
+  return 0;
+}
+
+// function to sort breeds reverse alphabetically
+function reverseCompareBreeds(a, b) {
+  if (a.matchedBreed < b.matchedBreed){
+    return 1;
+  }
+  if (a.matchedBreed > b.matchedBreed){
+    return -1;
+  }
+  return 0;
+}
+
 // function to display all matches and their info
-function showMatch () {
+function showMatch (sortedArray) {
   // loop through all objects in the array
-  for (let i = 0; i < matchDetails.length; i++) {
+  for (let i = 0; i < sortedArray.length; i++) {
     // create all elements to display new match
     const displayMatch = document.createElement('div');
     const imgDiv = document.createElement('div');
@@ -50,7 +105,7 @@ function showMatch () {
     sexInfo.classList.add('info-sex');
 
     // get individual properties from each object in the array
-    const properties = Object.values(matchDetails[i]);
+    const properties = Object.values(sortedArray[i]);
     const matchedBreed = properties[0];
     const matchedName = properties[1];
     const matchedSex = properties[2];
@@ -88,8 +143,51 @@ function showMatch () {
   }
 }
 
-// run function
-showMatch();
+// run function to show matches when page loads
+showMatch(matchDetails);
+
+// sorting divs from dropdown user selection
+sortBy.addEventListener('change', () => {
+  // get all created divs
+  const allMatches = showAllMatches.querySelectorAll('.match-div');
+
+  // create copy of array
+  let matchDetailsCopy = [...matchDetails];
+
+  // removes all current divs
+  allMatches.forEach(match => {
+    match.remove();
+  });
+  
+  if (sortBy.value == 'alphabetical-names') {
+    // run function to sort array
+    let sortedNames = matchDetailsCopy.sort(compareNames);
+    showMatch(sortedNames);
+
+  } else if (sortBy.value == 'reverse-names') {
+    // run function to sort array
+    let sortedNames = matchDetailsCopy.sort(reverseCompareNames);
+    showMatch(sortedNames);
+
+  } else if (sortBy.value == 'sexes') {
+    // run function to sort array
+    let sortedNames = matchDetailsCopy.sort(compareSexes);
+    showMatch(sortedNames);
+
+  } else if (sortBy.value == 'alphabetical-breeds') {
+    // run function to sort array
+    let sortedNames = matchDetailsCopy.sort(compareBreeds);
+    showMatch(sortedNames);
+    
+  } else if (sortBy.value == 'reverse-breeds') {
+    // run function to sort array
+    let sortedNames = matchDetailsCopy.sort(reverseCompareBreeds);
+    showMatch(sortedNames);
+
+  } else if (sortBy.value == 'default') {
+    showMatch(matchDetails);
+  }
+});
 
 searchBreed.addEventListener('keyup', (e) => {
   let currentValue = searchBreed.value.toLowerCase();
@@ -118,17 +216,3 @@ searchName.addEventListener('keyup', (e) => {
     }
   }
 });
-
-// searchSex.addEventListener('keyup', (e) => {
-//   let currentValue = searchSex.value.toLowerCase();
-//   let dogsSex = document.querySelectorAll('.info-sex');
-
-//   for (let i = 0; i < dogsSex.length; i++) {
-//     const allSexInfo = dogsSex[i].textContent.toLowerCase();
-//     if (allSexInfo.includes(currentValue)) {
-//       dogsSex[i].parentNode.parentNode.style.display = 'block';
-//     } else {
-//       dogsSex[i].parentNode.parentNode.style.display = 'none';
-//     }
-//   }
-// });

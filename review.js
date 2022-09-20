@@ -25,6 +25,22 @@ changePref.addEventListener('click', changePreferences);
 const matchDetailsString = localStorage.getItem('reviewAllMatchesString');
 const matchDetails = JSON.parse(matchDetailsString);
 
+// function getPreviousMatches() {
+//   const combinedMatchesString = localStorage.getItem('storedMatchesString');
+//   const combinedMatches = JSON.parse(combinedMatchesString);
+
+//   allMatches.push(combinedMatches);
+// }
+
+let allMatches = [];
+
+for (let i = 0; i < matchDetails.length; i++) {
+  const matchObjects = matchDetails[i];
+  allMatches.push(matchObjects);
+}
+
+// localStorage.setItem("storedMatchesString", allMatches);
+
 // function to sort names alphabetically
 function compareNames(a, b) {
   if (a.matchedName < b.matchedName){
@@ -43,17 +59,6 @@ function reverseCompareNames(a, b) {
   }
   if (a.matchedName > b.matchedName){
     return -1;
-  }
-  return 0;
-}
-
-// function to sort by sexes
-function compareSexes(a, b) {
-  if (a.matchedSex < b.matchedSex){
-    return -1;
-  }
-  if (a.matchedSex > b.matchedSex){
-    return 1;
   }
   return 0;
 }
@@ -143,49 +148,49 @@ function showMatch (sortedArray) {
   }
 }
 
-// run function to show matches when page loads
-showMatch(matchDetails);
+// run function at least once to show matches when page loads
+showMatch(allMatches);
 
 // sorting divs from dropdown user selection
 sortBy.addEventListener('change', () => {
-  // get all created divs
-  const allMatches = showAllMatches.querySelectorAll('.match-div');
+  // get all current matches divs
+  const matchesDivs = showAllMatches.querySelectorAll('.match-div');
 
   // create copy of array
-  let matchDetailsCopy = [...matchDetails];
+  let allMatchesCopy = [...allMatches];
 
   // removes all current divs
-  allMatches.forEach(match => {
+  matchesDivs.forEach(match => {
     match.remove();
   });
   
-  if (sortBy.value == 'alphabetical-names') {
+  if (sortBy.value == 'oldest') {
+    showMatch(allMatches);
+
+  } else if (sortBy.value == 'newest') {
     // run function to sort array
-    let sortedNames = matchDetailsCopy.sort(compareNames);
+    let sortedNames = allMatchesCopy.reverse();
+    showMatch(sortedNames);
+
+  } else if (sortBy.value == 'alphabetical-names') {
+    // run function to sort array
+    let sortedNames = allMatchesCopy.sort(compareNames);
     showMatch(sortedNames);
 
   } else if (sortBy.value == 'reverse-names') {
     // run function to sort array
-    let sortedNames = matchDetailsCopy.sort(reverseCompareNames);
-    showMatch(sortedNames);
-
-  } else if (sortBy.value == 'sexes') {
-    // run function to sort array
-    let sortedNames = matchDetailsCopy.sort(compareSexes);
+    let sortedNames = allMatchesCopy.sort(reverseCompareNames);
     showMatch(sortedNames);
 
   } else if (sortBy.value == 'alphabetical-breeds') {
     // run function to sort array
-    let sortedNames = matchDetailsCopy.sort(compareBreeds);
+    let sortedNames = allMatchesCopy.sort(compareBreeds);
     showMatch(sortedNames);
     
   } else if (sortBy.value == 'reverse-breeds') {
     // run function to sort array
-    let sortedNames = matchDetailsCopy.sort(reverseCompareBreeds);
+    let sortedNames = allMatchesCopy.sort(reverseCompareBreeds);
     showMatch(sortedNames);
-
-  } else if (sortBy.value == 'default') {
-    showMatch(matchDetails);
   }
 });
 

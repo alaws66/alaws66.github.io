@@ -297,8 +297,21 @@ crossBtn.addEventListener('click', () => {
   fetchBreedImg();
 });
 
-// empty array
-let allMatches = [];
+// get array from local storage
+const matchDetailsString = localStorage.getItem('reviewAllMatchesString');
+const matchDetails = JSON.parse(matchDetailsString);
+
+// keep old matches in local storage and add new matches to arary
+if (matchDetails && matchDetails.length) {
+  var allMatches = [];
+
+  for (let i = 0; i < matchDetails.length; i++) {
+    const matchObjects = matchDetails[i];
+    allMatches.push(matchObjects);
+  }
+} else {
+  var allMatches = [];
+}
 
 heartBtn.addEventListener('click', () => {
   // add all match info into local storage

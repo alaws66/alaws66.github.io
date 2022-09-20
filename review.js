@@ -25,21 +25,14 @@ changePref.addEventListener('click', changePreferences);
 const matchDetailsString = localStorage.getItem('reviewAllMatchesString');
 const matchDetails = JSON.parse(matchDetailsString);
 
-// function getPreviousMatches() {
-//   const combinedMatchesString = localStorage.getItem('storedMatchesString');
-//   const combinedMatches = JSON.parse(combinedMatchesString);
-
-//   allMatches.push(combinedMatches);
-// }
-
+// empty array
 let allMatches = [];
 
+// push all objects from array into empty array
 for (let i = 0; i < matchDetails.length; i++) {
   const matchObjects = matchDetails[i];
   allMatches.push(matchObjects);
 }
-
-// localStorage.setItem("storedMatchesString", allMatches);
 
 // function to sort names alphabetically
 function compareNames(a, b) {

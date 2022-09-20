@@ -21,7 +21,6 @@ getListOption();
 // when save button clicked save selected dropdown value
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  localStorage.clear();
 
   localStorage.setItem("selectedSex", document.querySelector('input[name="sex"]:checked').id);
   localStorage.setItem("breed", select.value);

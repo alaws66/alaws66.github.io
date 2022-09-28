@@ -1,0 +1,198 @@
+@media (max-width: 1370px) {
+  .matches-img {
+    width: 30em;
+    height: 20em;
+  }
+
+  .dog-info {
+    margin: 1em 0 0 2em;
+    padding: 2em;
+    font-size: 0.8em;
+  }
+
+  .option-btns {
+    margin-top: 7em;
+  }
+}
+
+@media (max-width: 1085px) {
+  .header,
+  .review-header {
+    margin-bottom: 2em;
+  }
+
+  .nav-btns {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-matches,
+  .new-matches {
+    font-size: 1.5em;
+    margin: 1.2em 1em 0.5em 0.5em;
+  }
+
+  .change-pref {
+    font-size: 1.5em;
+    margin: 0.5em 1em 0.5em 0.5em;
+  }
+
+  .dog-profile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .matches-img {
+    width: 25em;
+    height: 15em;
+  }
+
+  .dog-info {
+    margin-top: 2em;
+    margin-left: 0;
+  }
+
+  .option-btns {
+    margin: 3em 0;
+  }
+
+  .cross,
+  .heart {
+    width: 3em;
+    height: 3em;
+  }
+}
+
+@media (max-width: 930px) {
+  form {
+    margin-top: 8em;
+    padding: 4em;
+  }
+
+  .check-box {
+    margin-bottom: 2em;
+  }
+
+  .sex-pref,
+  .breed-select {
+    font-size: 2em;
+  }
+
+  label,
+  select,
+  button {
+    font-size: 1.5em;
+  }
+
+  .match-div {
+    margin: 1em;
+    padding: 1.5em;
+    width: 8em;
+  }
+
+  .info-div p {
+    font-size: 0.8em;
+  }
+  
+  .match-div button {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 665px) {
+  .pref-header {
+    display: flex;
+    justify-content: center;
+  }
+
+  form {
+    margin-top: 10em;
+    padding: 3em;
+  }
+
+  .sex-pref,
+  .breed-select {
+    font-size: 1.5em;
+  }
+
+  label,
+  select,
+  .save,
+  .search-breed,
+  .search-name,
+  .sort-by {
+    font-size: 1em;
+  }
+
+  .main-container {
+    margin: 0 5em;
+  }
+
+  .header img,
+  .review-header img {
+    width: 12em;
+    height: 8.5em;
+    margin-right: 0;
+  }
+
+  .review-matches,
+  .change-pref,
+  .new-matches {
+    font-size: 1.2em;
+    margin-left: 0;
+  }
+
+  .dog-info {
+    padding: 1em;
+    min-width: 20em;
+  }
+
+  .dog-info p {
+    font-size: 1.5em;
+  }
+
+  .option-btns {
+    margin-top: 6em;
+  }
+
+  .cross,
+  .heart {
+    margin: 0 0.8em;
+  }
+}
+
+@media (max-width: 470px) {
+  form {
+    margin-top: 3em;
+  }
+
+  .check-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header,
+  .review-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header img,
+  .review-header img {
+    margin: 1em o;
+  }
+
+  .review-matches,
+  .change-pref,
+  .new-matches {
+    margin: 1em 0 0.2em 0;
+  }
+
+  .main-container {
+    margin: 0 1em;
+  }
+
+  .option-btns {
+    margin-top: 2.5em;
+  }
+}

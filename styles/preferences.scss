@@ -1,0 +1,45 @@
+.preferences {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+form {
+  background-color: #ecc755;
+  margin-top: 2em;
+  padding: 6em;
+  width: fit-content;
+  border-radius: 50px;
+}
+
+.check-box {
+  margin-bottom: 3em;
+}
+
+.check-options {
+  display: flex;
+}
+
+.check-options input {
+  width: 25px;
+  height: 25px;
+}
+
+.option-1,
+.option-2 {
+  margin-right: 1.5em;
+}
+
+.sex-pref,
+.breed-select {
+  font-size: 3em;
+}
+
+.save {
+  margin-top: 1em;
+  padding: 0.3em 0.5em;
+  background-color: #ffa3af;
+  border: none;
+  border-radius: 5px;
+  transition: background-color .5s, border-radius .2s;
+}

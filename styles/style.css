@@ -10,6 +10,13 @@ body {
 .pref-header img {
   width: 15em;
   margin: 1em;
+  transition: transform .5s cubic-bezier(.55,-0.75,.45,1.7);
+}
+
+.header img:hover,
+.review-header img:hover,
+.pref-header img:hover {
+  transform: rotate(-10deg);
 }
 
 .review-matches,
@@ -20,16 +27,21 @@ body {
   background-color: #ffa3af;
   border: none;
   border-radius: 5px;
+  transition: background-color .5s;
 }
 
 .save:hover,
 .review-matches:hover,
 .change-pref:hover,
 .new-matches:hover,
-.option-btns button:hover,
-.match-div button:hover,
-.sort-btn:hover {
+.match-div button:hover {
   background-color: #f58d9b;
+  cursor: pointer;
+}
+
+.match-div button:hover,
+.save:hover {
+  border-radius: 20px;
 }
 
 label,
@@ -86,6 +98,7 @@ form {
   background-color: #ffa3af;
   border: none;
   border-radius: 5px;
+  transition: background-color .5s, border-radius .2s;
 }
 
 /* Matching page */
@@ -146,6 +159,12 @@ form {
   background-color: #ffa3af;
   border: none;
   border-radius: 50%;
+  transition: background-color .5s;
+}
+
+.option-btns button:hover {
+  background-color: #f58d9b;
+  cursor: pointer;
 }
 
 /* Review Page */
@@ -172,15 +191,6 @@ form {
   border-radius: 4px;
 }
 
-.sort-btn {
-  font-size: 1.5em;
-  padding: 0 0.5em;
-  height: 2em;
-  background-color: #ffa3af;
-  border: none;
-  border-radius: 4px;
-}
-
 .show-all-matches {
   display: flex;
   flex-wrap: wrap;
@@ -199,12 +209,18 @@ form {
   width: 10em;
   height: fit-content;
   border-radius: 50px;
+  box-shadow: 0 0 25px 5px #ffa3af;
 }
 
 .dog-img {
   display: flex;
   justify-content: center;
   height: 10em;
+  transition: transform .5s cubic-bezier(.7, -0.4, .30, 1.4);
+}
+
+.dog-img:hover {
+  transform: scale(1.2);
 }
 
 .dog-img img {
@@ -219,6 +235,7 @@ form {
   background-color: #ffa3af;
   border: none;
   border-radius: 5px;
+  transition: background-color .5s, border-radius .2s;
 }
 
 /* Media Queries */
@@ -342,7 +359,7 @@ form {
 
   label,
   select,
-  button,
+  .save,
   .search-breed,
   .search-name,
   .sort-by {

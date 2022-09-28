@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
       <img src="puppylovelogo.png" alt="Puppy Love">
     </div>
     <div id="preferences" class="preferences">
-      <form autocomplete="off" id="form">
+      <form id="form">
         <div class="check-box">
           <label for="sex-pref" class="sex-pref">Looking for:</label><br>
           <div class="check-options">
@@ -28,7 +28,7 @@
               <label for="female">Female</label>
             </div>
             <div class="option-3">
-              <input type="radio" name="sex" id="both">
+              <input type="radio" name="sex" id="both" checked>
               <label for="both">Both</label><br>
             </div>
           </div>
@@ -42,6 +42,6 @@
       </form>
     </div>
 
-    <script src="script.js"></script>
+    <script src="scripts/preferences.js"></script>
   </body>
 </html>

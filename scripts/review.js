@@ -22,8 +22,8 @@ newMatches.addEventListener('click', findMatches);
 changePref.addEventListener('click', changePreferences);
 
 // get string from storage and convert back to an array
-const matchDetailsString = localStorage.getItem('reviewAllMatchesString');
-const matchDetails = JSON.parse(matchDetailsString);
+let matchDetailsString = localStorage.getItem('reviewAllMatchesString');
+let matchDetails = JSON.parse(matchDetailsString);
 
 // empty array
 let allMatches = [];
@@ -78,66 +78,49 @@ function reverseCompareBreeds(a, b) {
   return 0;
 }
 
+
+function handleRemove(id) {
+  let matchDetails = JSON.parse(matchDetailsString);
+
+  let filteredList = matchDetails.filter(function(item) {
+    return item.dogId != id
+  });
+
+  matchDetails = filteredList;
+  matchDetailsString = JSON.stringify(matchDetails);
+  localStorage.setItem("reviewAllMatchesString", matchDetailsString);
+  
+  document.getElementById(id).remove();
+
+  allMatches = [];
+
+  // push all objects from array into empty array
+  for (let i = 0; i < matchDetails.length; i++) {
+    const matchObjects = matchDetails[i];
+    allMatches.push(matchObjects);
+  }
+}
+
 // function to display all matches and their info
 function showMatch (sortedArray) {
-  // loop through all objects in the array
+
   for (let i = 0; i < sortedArray.length; i++) {
-    // create all elements to display new match
     const displayMatch = document.createElement('div');
-    const imgDiv = document.createElement('div');
-    const pDiv = document.createElement('div');
-    const dogImg = document.createElement('img');
-    const breedInfo = document.createElement('p');
-    const nameInfo = document.createElement('p');
-    const sexInfo = document.createElement('p');
-    const removeBtn = document.createElement('button');
-
-    // add classes to divs
+    displayMatch.id = sortedArray[i].dogId;
     displayMatch.classList.add('match-div');
-    imgDiv.classList.add('dog-img');
-    pDiv.classList.add('info-div');
-
-    // add classes to p tags
-    breedInfo.classList.add('info-breed');
-    nameInfo.classList.add('info-name');
-    sexInfo.classList.add('info-sex');
-
-    // get individual properties from each object in the array
-    const properties = Object.values(sortedArray[i]);
-    const matchedBreed = properties[0];
-    const matchedName = properties[1];
-    const matchedSex = properties[2];
-    const matchedImg = properties[3];
-
-    // add src to img and append to divs
-    dogImg.src = matchedImg;
-    imgDiv.appendChild(dogImg);
-    displayMatch.appendChild(imgDiv);
-
-    // add text content to all p tags and append to divs
-    breedInfo.textContent = matchedBreed;
-    pDiv.appendChild(breedInfo);
-    displayMatch.appendChild(pDiv);
-
-    nameInfo.textContent = matchedName;
-    pDiv.appendChild(nameInfo);
-    displayMatch.appendChild(pDiv);
-
-    sexInfo.textContent = matchedSex;
-    pDiv.appendChild(sexInfo);
-    displayMatch.appendChild(pDiv);
-
-    // add text content to button and append to div
-    removeBtn.textContent = 'Remove';
-    displayMatch.appendChild(removeBtn);
-
-    // append all divs to main div
+  
+    displayMatch.innerHTML = `
+          <div class="dog-img">
+            <img src="${sortedArray[i].matchedImg}"/>
+          </div>
+          <div class="info-div">
+            <p class="info-breed">${sortedArray[i].matchedBreed}</p>
+            <p class="info-name">${sortedArray[i].matchedName}</p>
+            <p class="info-sex">${sortedArray[i].matchedSex}</p>
+          </div>
+          <button onclick="handleRemove(${sortedArray[i].dogId})">Remove</button>  
+      `
     showAllMatches.appendChild(displayMatch);
-
-    // if button clicked remove match
-    removeBtn.addEventListener('click', () => {
-      showAllMatches.removeChild(displayMatch);
-    });
   }
 }
 

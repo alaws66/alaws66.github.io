@@ -1,20 +1,23 @@
+const host = `${location.protocol}//${location.host}`;
+
 // get elements from html
 const searchBreed = document.getElementById('search-breed');
 const searchName = document.getElementById('search-name');
-const searchSex = document.getElementById('search-sex');
 
 const sortBy = document.querySelector('.sort-by');
 const newMatches = document.querySelector('.new-matches');
 const changePref = document.querySelector('.change-pref');
 const showAllMatches = document.querySelector('.show-all-matches');
 
+let selectedSort = '';
+
 // functions for changing pages
 function findMatches() {
-  location.href = 'http://127.0.0.1:5174/matching.html';
+  location.href = `${host}/matching.html`;
 }
 
 function changePreferences() {
-  location.href = 'http://127.0.0.1:5174';
+  location.href = host;
 }
 
 // run function when button clicked
@@ -78,7 +81,7 @@ function reverseCompareBreeds(a, b) {
   return 0;
 }
 
-
+// function to remove match
 function handleRemove(id) {
   let matchDetails = JSON.parse(matchDetailsString);
 
@@ -102,98 +105,69 @@ function handleRemove(id) {
 }
 
 // function to display all matches and their info
-function showMatch (sortedArray) {
+function showMatch (sortType, breed, name) {
+  let allMatchesCopy = [...allMatches];
 
-  for (let i = 0; i < sortedArray.length; i++) {
+  // Filter for breed
+  allMatchesCopy = allMatchesCopy.filter((el) => el.matchedBreed.toLowerCase().includes(breed.toLowerCase()));
+
+  // Filter for name
+  allMatchesCopy = allMatchesCopy.filter((el) => el.matchedName.toLowerCase().includes(name.toLowerCase()));
+  
+  let sortedNames = () => {
+    switch (sortType) {
+      case 'newest':
+        return allMatchesCopy.reverse();
+      case 'alphabetical-names':
+        return allMatchesCopy.sort(compareNames);
+      case 'reverse-names':
+        return allMatchesCopy.sort(reverseCompareNames);
+      case 'alphabetical-breeds':
+        return allMatchesCopy.sort(compareBreeds);
+      case 'reverse-breeds':
+        return allMatchesCopy.sort(reverseCompareBreeds);
+      default:
+        return allMatchesCopy;
+    }
+  }
+
+  allMatchesCopy = sortedNames();
+
+  showAllMatches.innerHTML = '';
+  
+  for (let i = 0; i < allMatchesCopy.length; i++) {
     const displayMatch = document.createElement('div');
-    displayMatch.id = sortedArray[i].dogId;
+    displayMatch.id = allMatchesCopy[i].dogId;
     displayMatch.classList.add('match-div');
   
     displayMatch.innerHTML = `
           <div class="dog-img">
-            <img src="${sortedArray[i].matchedImg}"/>
+            <img src="${allMatchesCopy[i].matchedImg}"/>
           </div>
           <div class="info-div">
-            <p class="info-breed">${sortedArray[i].matchedBreed}</p>
-            <p class="info-name">${sortedArray[i].matchedName}</p>
-            <p class="info-sex">${sortedArray[i].matchedSex}</p>
+            <p class="info-breed">Breed: ${allMatchesCopy[i].matchedBreed}</p>
+            <p class="info-name">Name: ${allMatchesCopy[i].matchedName}</p>
+            <p class="info-sex">Sex: ${allMatchesCopy[i].matchedSex}</p>
           </div>
-          <button onclick="handleRemove(${sortedArray[i].dogId})">Remove</button>  
+          <button onclick="handleRemove(${allMatchesCopy[i].dogId})">Remove</button>  
       `
     showAllMatches.appendChild(displayMatch);
   }
 }
 
 // run function at least once to show matches when page loads
-showMatch(allMatches);
+showMatch(selectedSort, searchBreed.value.toLowerCase(), searchName.value.toLowerCase());
 
 // sorting divs from dropdown user selection
-sortBy.addEventListener('change', () => {
-  // get all current matches divs
-  const matchesDivs = showAllMatches.querySelectorAll('.match-div');
-
-  // create copy of array
-  let allMatchesCopy = [...allMatches];
-
-  // removes all current divs
-  matchesDivs.forEach(match => {
-    match.remove();
-  });
-  
-  if (sortBy.value == 'oldest') {
-    showMatch(allMatches);
-
-  } else if (sortBy.value == 'newest') {
-    // run function to sort array
-    let sortedNames = allMatchesCopy.reverse();
-    showMatch(sortedNames);
-
-  } else if (sortBy.value == 'alphabetical-names') {
-    // run function to sort array
-    let sortedNames = allMatchesCopy.sort(compareNames);
-    showMatch(sortedNames);
-
-  } else if (sortBy.value == 'reverse-names') {
-    // run function to sort array
-    let sortedNames = allMatchesCopy.sort(reverseCompareNames);
-    showMatch(sortedNames);
-
-  } else if (sortBy.value == 'alphabetical-breeds') {
-    // run function to sort array
-    let sortedNames = allMatchesCopy.sort(compareBreeds);
-    showMatch(sortedNames);
-    
-  } else if (sortBy.value == 'reverse-breeds') {
-    // run function to sort array
-    let sortedNames = allMatchesCopy.sort(reverseCompareBreeds);
-    showMatch(sortedNames);
-  }
+sortBy.addEventListener('change', (e) => {
+  selectedSort = e.target.value;
+  showMatch(selectedSort, searchBreed.value.toLowerCase(), searchName.value.toLowerCase());
 });
 
 searchBreed.addEventListener('keyup', (e) => {
-  let currentValue = searchBreed.value.toLowerCase();
-  let dogsBreed = document.querySelectorAll('.info-breed');
-
-  for (let i = 0; i < dogsBreed.length; i++) {
-    const allBreedInfo = dogsBreed[i].textContent.toLowerCase();
-    if (allBreedInfo.includes(currentValue)) {
-      dogsBreed[i].parentNode.parentNode.style.display = 'block';
-    } else {
-      dogsBreed[i].parentNode.parentNode.style.display = 'none';
-    }
-  }
+  showMatch(selectedSort, searchBreed.value.toLowerCase(), searchName.value.toLowerCase());
 });
 
 searchName.addEventListener('keyup', (e) => {
-  let currentValue = searchName.value.toLowerCase();
-  let dogsName = document.querySelectorAll('.info-name');
-
-  for (let i = 0; i < dogsName.length; i++) {
-    const allNameInfo = dogsName[i].textContent.toLowerCase();
-    if (allNameInfo.includes(currentValue)) {
-      dogsName[i].parentNode.parentNode.style.display = 'block';
-    } else {
-      dogsName[i].parentNode.parentNode.style.display = 'none';
-    }
-  }
+  showMatch(selectedSort, searchBreed.value.toLowerCase(), searchName.value.toLowerCase());
 });

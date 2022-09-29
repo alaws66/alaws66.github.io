@@ -1,3 +1,5 @@
+const host = `${location.protocol}//${location.host}`;
+
 // lists of random dog names
 const femaleNames = [
   'Luna',
@@ -208,7 +210,7 @@ const maleNames = [
 // list of sexes
 const sexes = ['Male', 'Female'];
 
-// get elements from html
+// get elements from html0
 const matches = document.querySelector('.matches-img');
 const dogInfo = document.querySelector('.dog-info');
 const crossBtn = document.querySelector('.cross');
@@ -223,7 +225,7 @@ const sex = document.querySelector('.sex');
 
 // function for event listener to change page when button clicked
 function changePreferences() {
-  location.href = 'http://127.0.0.1:5174';
+  location.href = host;
 }
 
 changePref.addEventListener('click', changePreferences);
@@ -315,9 +317,15 @@ if (matchDetails && matchDetails.length) {
 
 heartBtn.addEventListener('click', () => {
   // get match info
-  const matchedBreed = breedShow.textContent;
-  const matchedName = name.textContent;
-  const matchedSex = sex.textContent;
+  let matchedBreed = breedShow.textContent.split(' ');
+  matchedBreed = matchedBreed[1];
+
+  let matchedName = name.textContent.split(' ');
+  matchedName = matchedName[1];
+
+  let matchedSex = sex.textContent.split(' ');
+  matchedSex = matchedSex[1];
+
   const matchedImg = document.getElementById('dog-img').src;
 
   // add all match info into an object and push to empty array
@@ -335,7 +343,7 @@ heartBtn.addEventListener('click', () => {
 
 // function to change page when button clicked
 function reviewMatches() {
-  location.href = 'http://127.0.0.1:5174/review.html';
+  location.href = `${host}/review.html`;
 }
 
 // run function when button clicked

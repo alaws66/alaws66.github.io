@@ -1,5 +1,7 @@
-@import 'styles/preferences.scss',
-'styles/included_global.scss',
-'styles/matching.scss',
-'styles/review.scss',
-'styles/media_queries.scss';
+@import 'styles/_variables.scss',
+'styles/_mixins.scss',
+'styles/_preferences.scss',
+'styles/_included_global.scss',
+'styles/_matching.scss',
+'styles/_review.scss',
+'styles/_media_queries.scss';

@@ -1,0 +1,11 @@
+@mixin flexbox (
+  $disp: flex,
+  $just: null,
+  $wrap: null,
+  $dir: null,
+){
+  display: $disp;
+  justify-content: $just;
+  flex-wrap: $wrap;
+  flex-direction: $dir;
+}

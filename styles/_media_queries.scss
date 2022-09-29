@@ -7,7 +7,7 @@
   .dog-info {
     margin: 1em 0 0 2em;
     padding: 2em;
-    font-size: 0.8em;
+    font-size: $xxs-font;
   }
 
   .option-btns {
@@ -22,19 +22,18 @@
   }
 
   .nav-btns {
-    display: flex;
-    flex-direction: column;
+    @include flexbox($dir: column);
   }
 
   .review-matches,
   .new-matches {
-    font-size: 1.5em;
     margin: 1.2em 1em 0.5em 0.5em;
+    font-size: $medium-font;
   }
 
   .change-pref {
-    font-size: 1.5em;
     margin: 0.5em 1em 0.5em 0.5em;
+    font-size: $medium-font;
   }
 
   .dog-profile {
@@ -75,34 +74,33 @@
 
   .sex-pref,
   .breed-select {
-    font-size: 2em;
+    font-size: $large-font;
   }
 
   label,
   select,
   button {
-    font-size: 1.5em;
+    font-size: $medium-font;
   }
 
   .match-div {
     margin: 1em;
-    padding: 1.5em;
+    padding: $medium-font;
     width: 8em;
+
+    button {
+      font-size: $xxs-font;
+    }
   }
 
   .info-div p {
-    font-size: 0.8em;
-  }
-  
-  .match-div button {
-    font-size: 0.8em;
+    font-size: $xxs-font;
   }
 }
 
 @media (max-width: 665px) {
   .pref-header {
-    display: flex;
-    justify-content: center;
+    @include flexbox($just: center);
   }
 
   form {
@@ -112,7 +110,7 @@
 
   .sex-pref,
   .breed-select {
-    font-size: 1.5em;
+    font-size: $medium-font;
   }
 
   label,
@@ -121,7 +119,7 @@
   .search-breed,
   .search-name,
   .sort-by {
-    font-size: 1em;
+    font-size: $xs-font;
   }
 
   .main-container {
@@ -130,25 +128,25 @@
 
   .header img,
   .review-header img {
+    margin-right: 0;
     width: 12em;
     height: 8.5em;
-    margin-right: 0;
   }
 
   .review-matches,
   .change-pref,
   .new-matches {
-    font-size: 1.2em;
     margin-left: 0;
+    font-size: $small-font;
   }
 
   .dog-info {
     padding: 1em;
     min-width: 20em;
-  }
 
-  .dog-info p {
-    font-size: 1.5em;
+    p {
+      font-size: $medium-font;
+    }
   }
 
   .option-btns {
@@ -175,11 +173,10 @@
   .review-header {
     flex-direction: column;
     align-items: center;
-  }
 
-  .header img,
-  .review-header img {
-    margin: 1em o;
+    img {
+      margin: 1em;
+    }
   }
 
   .review-matches,

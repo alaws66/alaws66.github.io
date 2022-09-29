@@ -1,0 +1,56 @@
+.header {
+  @include flexbox($just: space-between);
+  margin-bottom: 5em;
+}
+
+.main-container {
+  @include flexbox($just: center, $dir: column);
+  margin: 0 calc(50vh - 330px);
+  text-align: center;
+}
+
+.dog-profile {
+  @include flexbox($just: space-around, $dir: row);
+}
+
+.matches-img {
+  width: 35em;
+  height: 25em;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+}
+
+.dog-info {
+  padding: 3em;
+  min-width: 25em;
+  width: fit-content;
+  height: fit-content;
+  background-color: $accent-color;
+  border-radius: 50px;
+}
+
+.option-btns {
+  @include flexbox($just: center, $wrap: nowrap);
+  margin-top: 3em;
+
+  button:hover {
+    cursor: pointer;
+    background-color: $brand-color-dark;
+  }
+}
+
+.cross,
+.heart {
+  margin: 0 1em;
+  padding: 0.5em;
+  width: 4em;
+  height: 4em;
+  background-color: $brand-color;
+  border: none;
+  border-radius: 50%;
+  transition: background-color .5s;
+}

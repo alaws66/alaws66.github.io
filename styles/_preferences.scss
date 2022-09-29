@@ -1,14 +1,13 @@
 .preferences {
-  display: flex;
-  justify-content: center;
+  @include flexbox($just: center);
   text-align: center;
 }
 
 form {
-  background-color: #ecc755;
   margin-top: 2em;
   padding: 6em;
   width: fit-content;
+  background-color: $accent-color;
   border-radius: 50px;
 }
 
@@ -17,12 +16,12 @@ form {
 }
 
 .check-options {
-  display: flex;
-}
+  @include flexbox();
 
-.check-options input {
-  width: 25px;
-  height: 25px;
+  input {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .option-1,
@@ -32,13 +31,13 @@ form {
 
 .sex-pref,
 .breed-select {
-  font-size: 3em;
+  font-size: $xl-font;
 }
 
 .save {
   margin-top: 1em;
   padding: 0.3em 0.5em;
-  background-color: #ffa3af;
+  background-color: $brand-color;
   border: none;
   border-radius: 5px;
   transition: background-color .5s, border-radius .2s;
